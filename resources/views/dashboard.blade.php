@@ -31,13 +31,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <!-- <div class="col-lg-3 col-sm-6">
                 <div class="card">
                     <div class="stat-widget-two card-body">
                         <div class="stat-content">
                             <div class="stat-text">Task Completed</div>
                             <div class="stat-digit"> <i class="fa fa-usd"></i> 500</div>
-                        </div>
+                        </div> -->
                         <div class="progress">
                             <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50"
                                 aria-valuemin="0" aria-valuemax="100"></div>
