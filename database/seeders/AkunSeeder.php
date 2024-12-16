@@ -12,12 +12,13 @@ class AkunSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
         $user = User::create([
-            'username' => 'sAdmin',
-            'password' => Hash::make('1234')
+            'username' => 'SAdmin',
+            'password' => Hash::make('12345')
         ]);
+
         $user->roles()->attach(1);
     }
 }

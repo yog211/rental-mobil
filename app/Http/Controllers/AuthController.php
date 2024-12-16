@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,15 +25,34 @@ class AuthController extends Controller
 
         if (Auth::attempt($cre)) {
             session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended('/dashboard');
         } else {
-            return redirect()->back()->with('warning', 'Username atau password anda salah!');
+            return redirect()->back()->with('warning', 'Username Atau Password Anda Salah');
         }
     }
 
+
     public function register()
     {
-        return view('auth.register');
+        $role = Role::whereNotIn('kode_role', ['SAD'])->get();
+        return view('auth.register', [
+            'roles' => $role
+        ]);
+
+        
+    }
+
+    public function store(Request $request)
+    {
+        $user = User::create([
+            'username' => $request->username,
+            'password' => Hash::make($request->password)
+        ]);
+
+        $user->roles()->attach($request->role_id);
+
+        return redirect()->route('auth.login')->with('success', 'akun anda berhasil diregistrasi, coba login!');
+
     }
 
     public function logout()
@@ -39,5 +61,4 @@ class AuthController extends Controller
 
         return redirect('/');
     }
-
 }
