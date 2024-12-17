@@ -38,8 +38,12 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
         }
         $user->save();
-
+        
         $roles = $this->checkRole($user->id);
+        
+        if (in_array('SAD', $roles)) {
+            return redirect()->back()->with('success', 'Profil berhasil di perbarui');
+        }
 
         if (in_array('CST', $roles)) {
             $konsumen = Konsumen::where('user_id', $user->id)->first();
@@ -99,10 +103,9 @@ class UserController extends Controller
 ]);
 
 }
-
-
         return redirect()->back()->with('success', 'Profile Berhasil Diperbarui!');
     }
+
 
     public function checkRole($id)
     {
